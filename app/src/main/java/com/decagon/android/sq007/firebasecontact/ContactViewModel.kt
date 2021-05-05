@@ -1,34 +1,28 @@
 package com.decagon.android.sq007.firebasecontact
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import kotlin.coroutines.coroutineContext
-import kotlin.math.log
 
 class ContactViewModel : ViewModel() {
-    //connect to our firebase data
+    // connect to our firebase data
 //     val database = FirebaseDatabase.getInstance(NODE_CONTACT).reference
-    //keep an eye on our data and firebase
+    // keep an eye on our data and firebase
     private val _result = MutableLiveData<Exception?>()
     val result: LiveData<Exception?> get() = _result
 
-    //keep an eye on our data displayed from firebase
+    // keep an eye on our data displayed from firebase
     private val _contact = MutableLiveData<Contact?>()
     val contact: LiveData<Contact?> get() = _contact
 
-    //add data to firebase
+    // add data to firebase
     fun addContact(contact: Contact) {
-        //generate an id
+        // generate an id
         val database = FirebaseDatabase.getInstance().getReference("contact")
         contact.id = database.push().key
-        //save values to firebase and generate an id
+        // save values to firebase and generate an id
         database.child(contact.id!!).setValue(contact).addOnCompleteListener {
             if (it.isSuccessful) {
                 _result.value = null
@@ -39,7 +33,7 @@ class ContactViewModel : ViewModel() {
             }
         }
     }
-    //event listener to know if a contact has been added or not
+    // event listener to know if a contact has been added or not
 //    private val childEventListener = object :ChildEventListener{
 //        override fun onCancelled(error: DatabaseError) {}
 //

@@ -1,13 +1,13 @@
 package com.decagon.android.sq007.phonecontact
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.widget.Button
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.SimpleCursorAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.decagon.android.sq007.MainActivity
 import com.decagon.android.sq007.R
@@ -26,11 +26,9 @@ class PhoneContactActivity : AppCompatActivity() {
 
         checkAndRequestForPermission()
         toHome()
-
-
     }
 
-    //check if permission is already granted if not, request for permission starts
+    // check if permission is already granted if not, request for permission starts
     fun checkAndRequestForPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -44,7 +42,7 @@ class PhoneContactActivity : AppCompatActivity() {
             )
         } else readContact()
     }
-    //check if permission is already granted if not, request for permission ends
+    // check if permission is already granted if not, request for permission ends
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -73,30 +71,28 @@ class PhoneContactActivity : AppCompatActivity() {
 
         findViewById<ListView>(R.id.lvPhoneContact).adapter = myAdapter
 
-        //implement searchView query starts
+        // implement searchView query starts
         findViewById<SearchView>(R.id.searchView).setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
+                SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
 
-                return false
-            }
+                    return false
+                }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                resultSet =
-                    contentResolver.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        cols,
-                        "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} LIKE ?",
-                        Array(1) { "%$newText%" },
-                        ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
-                    )
-                myAdapter.changeCursor(resultSet)
-                return false
-            }
-
-        })
-        //implementsearchview query ends
-
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    resultSet =
+                        contentResolver.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            cols,
+                            "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} LIKE ?",
+                            Array(1) { "%$newText%" },
+                            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
+                        )
+                    myAdapter.changeCursor(resultSet)
+                    return false
+                }
+            })
+        // implementsearchview query ends
     }
 
     fun toHome() {
@@ -104,6 +100,5 @@ class PhoneContactActivity : AppCompatActivity() {
 
             startActivity(Intent(this, MainActivity::class.java))
         }
-
     }
 }

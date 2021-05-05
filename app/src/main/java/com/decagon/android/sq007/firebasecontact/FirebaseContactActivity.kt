@@ -1,15 +1,11 @@
 package com.decagon.android.sq007.firebasecontact
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.decagon.android.sq007.R
-import com.decagon.android.sq007.phonecontact.PhoneContactActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 
@@ -32,16 +28,13 @@ class FirebaseContactActivity : AppCompatActivity() {
         getUserdata()
 
         findViewById<RecyclerView>(R.id.rvRecyclerViewFireBaseContacts).adapter = ContactAdapter(arrayListContact)
-
     }
 
     private fun addContactButtonTap() {
         findViewById<FloatingActionButton>(R.id.fbFloatingActionButton).setOnClickListener {
             val addContactIntent = Intent(this, AddContact::class.java)
             startActivity(addContactIntent)
-
         }
-
     }
 
     fun getUserdata() {
@@ -57,15 +50,11 @@ class FirebaseContactActivity : AppCompatActivity() {
                         // get the object of the Contact and store as snap
                         val snap = contactSnapshot.getValue(Contact::class.java)
                         arrayListContact.add(snap!!)
-
                     }
                     recyclerView.adapter = ContactAdapter(arrayListContact)
                 }
                 findViewById<RecyclerView>(R.id.rvRecyclerViewFireBaseContacts).adapter = ContactAdapter(arrayListContact)
             }
-
         })
     }
-
-
 }

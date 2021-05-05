@@ -1,7 +1,7 @@
 package com.decagon.android.sq007.firebasecontact
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.decagon.android.sq007.R
 
 class ContactItemActivity : AppCompatActivity() {

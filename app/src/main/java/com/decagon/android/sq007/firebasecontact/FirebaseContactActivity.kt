@@ -26,9 +26,16 @@ class FirebaseContactActivity : AppCompatActivity() {
 
         arrayListContact = arrayListOf()
         getUserdata()
-
-        findViewById<RecyclerView>(R.id.rvRecyclerViewFireBaseContacts).adapter = ContactAdapter(arrayListContact)
     }
+
+//    override fun onItemClicked(position: Int) {​​​​​​​​
+//        var intent = Intent(this, ContactItemActivity::class.java)
+//        intent.putExtra("personName", arrayListContact[position].firstName)
+//        intent.putExtra("personId", arrayListContact[position].id)
+//        intent.putExtra("personNumber", arrayListContact[position].phoneNumber)
+//        intent.putExtra("personSurname", arrayListContact[position].lastName)
+//        startActivity(intent)
+//    }​​​​​​​​
 
     private fun addContactButtonTap() {
         findViewById<FloatingActionButton>(R.id.fbFloatingActionButton).setOnClickListener {

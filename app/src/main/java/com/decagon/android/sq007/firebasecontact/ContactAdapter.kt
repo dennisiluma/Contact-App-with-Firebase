@@ -25,6 +25,7 @@ class ContactAdapter(private val userList: ArrayList<Contact>) :
         holder.firstName.text = currentItem.firstName
         holder.lastName.text = currentItem.lastName
         holder.phoneNumber.text = currentItem.phoneNumber
+//        holder.itemView.setOnClickListener { clickLIstner.onItemClicked(position) }
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

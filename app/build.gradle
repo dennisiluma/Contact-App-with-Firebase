@@ -70,27 +70,27 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 }
 
-//task installGitHook(type: Copy) {
-//    def suffix = "macos"
-//    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-//        suffix = "windows"
-//    }
-//    from new File(rootProject.rootDir, "scripts/pre-commit-$suffix")
-//    into { new File(rootProject.rootDir, '.git/hooks') }
-//    rename("pre-commit-$suffix", 'pre-commit')
-//    fileMode 0775
-//
-//    copy {
-//        def prePushSuffix = "macos"
-//        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-//            prePushSuffix = "windows"
-//        }
-//        from new File(rootProject.rootDir, "scripts/pre-push-$prePushSuffix")
-//        into { new File(rootProject.rootDir, '.git/hooks') }
-//        rename("pre-push-$prePushSuffix", 'pre-push')
-//        fileMode 0777
-//    }
-//}
+task installGitHook(type: Copy) {
+    def suffix = "macos"
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        suffix = "windows"
+    }
+    from new File(rootProject.rootDir, "scripts/pre-commit-$suffix")
+    into { new File(rootProject.rootDir, '.git/hooks') }
+    rename("pre-commit-$suffix", 'pre-commit')
+    fileMode 0775
+
+    copy {
+        def prePushSuffix = "macos"
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            prePushSuffix = "windows"
+        }
+        from new File(rootProject.rootDir, "scripts/pre-push-$prePushSuffix")
+        into { new File(rootProject.rootDir, '.git/hooks') }
+        rename("pre-push-$prePushSuffix", 'pre-push')
+        fileMode 0777
+    }
+}
 
 
-//tasks.getByPath(':app:preBuild').dependsOn installGitHook
+tasks.getByPath(':app:preBuild').dependsOn installGitHook

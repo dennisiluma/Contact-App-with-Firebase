@@ -4,11 +4,19 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id "org.jlleitschuh.gradle.ktlint"
+//    // add kotlin-android-extensions
+//    id 'kotlin-android-extensions'
+    id 'com.google.gms.google-services'
 }
+
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+
+    buildFeatures {
+        viewBinding true
+    }
 
     defaultConfig {
         applicationId "ng.com.jedun.continousintegrationproject"
@@ -37,11 +45,14 @@ android {
 
 dependencies {
 
+    //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
+    implementation 'com.google.firebase:firebase-firestore:22.1.2'
 
     testImplementation 'junit:junit:4.13.2'
 
@@ -49,29 +60,34 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     testImplementation "com.google.truth:truth:1.1.2"
+    // recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
 }
 
-task installGitHook(type: Copy) {
-    def suffix = "macos"
-    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        suffix = "windows"
-    }
-    from new File(rootProject.rootDir, "scripts/pre-commit-$suffix")
-    into { new File(rootProject.rootDir, '.git/hooks') }
-    rename("pre-commit-$suffix", 'pre-commit')
-    fileMode 0775
+//task installGitHook(type: Copy) {
+//    def suffix = "macos"
+//    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+//        suffix = "windows"
+//    }
+//    from new File(rootProject.rootDir, "scripts/pre-commit-$suffix")
+//    into { new File(rootProject.rootDir, '.git/hooks') }
+//    rename("pre-commit-$suffix", 'pre-commit')
+//    fileMode 0775
+//
+//    copy {
+//        def prePushSuffix = "macos"
+//        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+//            prePushSuffix = "windows"
+//        }
+//        from new File(rootProject.rootDir, "scripts/pre-push-$prePushSuffix")
+//        into { new File(rootProject.rootDir, '.git/hooks') }
+//        rename("pre-push-$prePushSuffix", 'pre-push')
+//        fileMode 0777
+//    }
+//}
 
-    copy {
-        def prePushSuffix = "macos"
-        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-            prePushSuffix = "windows"
-        }
-        from new File(rootProject.rootDir, "scripts/pre-push-$prePushSuffix")
-        into { new File(rootProject.rootDir, '.git/hooks') }
-        rename("pre-push-$prePushSuffix", 'pre-push')
-        fileMode 0777
-    }
-}
 
-
-tasks.getByPath(':app:preBuild').dependsOn installGitHook
+//tasks.getByPath(':app:preBuild').dependsOn installGitHook
